@@ -1,16 +1,118 @@
 ---
+import ImgLink from "../components/imgLink.astro";
+import type { ImageLink } from "../types/ImageLink";
 
+const isChecked: boolean = Astro.props.isChecked ?? false;
+const images: ImageLink[] = [
+  { imageUrl: "/aparecer/baile.gif", linkUrl: "textos/text1.png" },
+  { imageUrl: "/aparecer/caradeforme.gif", linkUrl: "textos/text2.png" },
+  {
+    imageUrl: "/aparecer/caraExplotando.gif",
+    linkUrl: "textos/text3.png",
+  },
+  { imageUrl: "/aparecer/cejas.gif", linkUrl: "/textos/text4.png" },
+  { imageUrl: "/aparecer/cookies.gif", linkUrl: "/textos/text5.png" },
+  { imageUrl: "/aparecer/espacial.gif", linkUrl: "/textos/text6.png" },
+  { imageUrl: "/aparecer/gatoChibi.gif", linkUrl: "images/areuok.jpg" },
+  { imageUrl: "/aparecer/Jumping_cat.gif", linkUrl: "images/callcenter.jpg" },
+  { imageUrl: "/aparecer/kirby.gif", linkUrl: "images/circulos.jpg" },
+  { imageUrl: "/aparecer/kirbyDormido.gif", linkUrl: "images/darkblader.jpg" },
+  { imageUrl: "/aparecer/manos.gif", linkUrl: "images/encuerada.jpg" },
+  { imageUrl: "/aparecer/marioBros.gif", linkUrl: "images/latrinidad.jpg" },
+  { imageUrl: "/aparecer/miku.gif", linkUrl: "images/likes.jpg" },
+  { imageUrl: "/aparecer/minita.gif", linkUrl: "images/lloros.jpg" },
+  { imageUrl: "/aparecer/minitaRetro.gif", linkUrl: "images/magolloron.jpg" },
+  { imageUrl: "/aparecer/skinMinita.gif", linkUrl: "images/minitapc.jpg" },
+  { imageUrl: "/aparecer/sonic.gif", linkUrl: "images/muneca.jpg" },
+  // Agrega más imágenes según sea necesario
+];
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>who.zzztar</title>
+  </head>
+  <body class="overflow-hidden relative h-screen bg-black">
+    <div
+      class="absolute top-0 left-0 bg-cover bg-no-repeat bg-center h-full w-full flex justify-center items-center"
+      style="background-image: url('/fondo.png');"
+    >
+      <input type="checkbox" id="toggle-visibility" class="peer hidden" />
+      <!-- Label que actúa como botón -->
+      <label
+        for="toggle-visibility"
+        class="rounded-md p-5 text-4xl uppercase cursor-pointer font-semibold bg-black text-gray-300 transition-colors duration-75 peer-checked:bg-pink-500 peer-checked:text-white"
+      >
+        начать теряться
+      </label>
+      {
+        images.map((image, index) => (
+          <ImgLink
+            id={`image-${index}`}
+            imageUrl={image.imageUrl}
+            linkUrl={image.linkUrl}
+            clase="absolute top-0 left-0 opacity-0"
+          />
+        ))
+      }
+    </div>
+    <script>
+      // Función para obtener una posición aleatoria dentro del área visible
+      function getRandomPosition(): { x: number; y: number } {
+        const x = Math.random() * (window.innerWidth - 150); // Ancho de la imagen
+        const y = Math.random() * (window.innerHeight - 150); // Alto de la imagen
+        return { x, y };
+      }
+
+      // Función para mostrar y ocultar imágenes aleatoriamente
+      function toggleVisibility(): number[] {
+        const images =
+          document.querySelectorAll<HTMLAnchorElement>('a[id^="image-"]');
+        const timers: number[] = [];
+
+        images.forEach((image, index) => {
+          const randomTime = Math.random() * 900 + 300; // Tiempo aleatorio entre 100ms y 1000ms
+
+          const toggleImage = () => {
+            const { x, y } = getRandomPosition(); // Obtiene una nueva posición aleatoria
+            image.style.transform = `translate(${x}px, ${y}px)`; // Mueve la imagen
+            image.classList.toggle("opacity-0"); // Alterna la visibilidad
+
+            const newRandomTime = Math.random() * 900 + 300; // Nuevo tiempo aleatorio
+            timers[index] = setTimeout(toggleImage, newRandomTime);
+          };
+
+          toggleImage();
+        });
+
+        return timers;
+      }
+
+      // Manejar el estado del checkbox
+      const checkbox = document.getElementById(
+        "toggle-visibility"
+      ) as HTMLInputElement;
+      let timers: number[] = [];
+
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          // Verifica si el checkbox está marcado
+          timers = toggleVisibility();
+        } else {
+          // Limpiar todos los intervalos cuando el checkbox se desactiva
+          timers.forEach(clearTimeout);
+          document
+            .querySelectorAll<HTMLAnchorElement>('a[id^="image-"]')
+            .forEach((image) => {
+              image.classList.add("opacity-0"); // Asegúrate de que todas las imágenes estén ocultas
+              image.style.transform = ""; // Restablece la posición
+            });
+        }
+      });
+    </script>
+  </body>
 </html>
