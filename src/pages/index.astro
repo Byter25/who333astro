@@ -45,7 +45,7 @@ const images: ImageLink[] = [
       <!-- Label que actúa como botón -->
       <label
         for="toggle-visibility"
-        class="rounded-md p-5 text-4xl uppercase cursor-pointer font-semibold bg-black text-gray-300 transition-colors duration-75 peer-checked:bg-pink-500 peer-checked:text-white"
+        class="rounded-md p-5 text-4xl uppercase cursor-pointer font-semibold bg-black text-gray-300 transition-colors duration-75 peer-checked:bg-gray-600 peer-checked:text-white"
       >
         начать теряться
       </label>
@@ -108,7 +108,7 @@ const images: ImageLink[] = [
           document
             .querySelectorAll<HTMLAnchorElement>('a[id^="image-"]')
             .forEach((image) => {
-              image.classList.add("opacity-0"); // Asegúrate de que todas las imágenes estén ocultas
+              image.classList.add("opacity-0"); // Asegura de que todas las imágenes estén ocultas
               image.style.transform = ""; // Restablece la posición
             });
         }
