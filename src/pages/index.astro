@@ -82,7 +82,7 @@ const images: ImageLink[] = [
             image.style.transform = `translate(${x}px, ${y}px)`; // Mueve la imagen
             image.classList.toggle("opacity-0"); // Alterna la visibilidad
 
-            const newRandomTime = Math.random() * 900 + 500; // Nuevo tiempo aleatorio
+            const newRandomTime = Math.random() * 1000 + 500; // Nuevo tiempo aleatorio
             timers[index] = setTimeout(toggleImage, newRandomTime);
           };
 
