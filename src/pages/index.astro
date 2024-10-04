@@ -75,7 +75,7 @@ const images: ImageLink[] = [
         const timers: number[] = [];
 
         images.forEach((image, index) => {
-          const randomTime = Math.random() * 900 + 500; // Tiempo aleatorio entre 100ms y 1000ms
+          const randomTime = Math.random() * 1000 + 500; // Tiempo aleatorio entre 100ms y 1000ms
 
           const toggleImage = () => {
             const { x, y } = getRandomPosition(); // Obtiene una nueva posición aleatoria
