@@ -75,14 +75,14 @@ const images: ImageLink[] = [
         const timers: number[] = [];
 
         images.forEach((image, index) => {
-          const randomTime = Math.random() * 1000 + 1500; // Tiempo aleatorio entre 100ms y 1000ms
+          const randomTime = Math.random() * 2000 + 1000; // Tiempo aleatorio entre 100ms y 1000ms
 
           const toggleImage = () => {
             const { x, y } = getRandomPosition(); // Obtiene una nueva posición aleatoria
             image.style.transform = `translate(${x}px, ${y}px)`; // Mueve la imagen
             image.classList.toggle("opacity-0"); // Alterna la visibilidad
 
-            const newRandomTime = Math.random() * 1000 + 1500; // Nuevo tiempo aleatorio
+            const newRandomTime = Math.random() * 2000 + 1000; // Nuevo tiempo aleatorio
             timers[index] = setTimeout(toggleImage, newRandomTime);
           };
 
