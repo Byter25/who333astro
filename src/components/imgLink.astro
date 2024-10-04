@@ -15,6 +15,22 @@ const { clase } = Astro.props;
   <img
     src={imageUrl}
     alt="Imagen enlazada"
-    class="max-w-xs h-auto rounded-lg shadow-md transition-transform transform hover:scale-105"
+    class="w-32 sm:max-w-xs h-auto rounded-lg shadow-md   transition-transform transform hover:scale-105" 
+    src="your-image.jpg" 
+    alt="description"
+/>
+
+Aquí te explico cómo funciona este código:
+
+w-32: Esta clase define el ancho de la imagen en dispositivos móviles (por defecto, todos los tamaños de pantalla más pequeños que sm). Puedes ajustar el valor de w-32 a otro tamaño como w-24 o w-20 para hacer la imagen aún más pequeña en dispositivos móviles.
+
+sm:max-w-xs: A partir del tamaño sm (small, usualmente pantallas de 640px o más), la imagen recupera su tamaño máximo original con max-w-xs.
+
+transition-transform transform hover:scale-105: Aplica una transición y un efecto de escalado al hacer hover sobre la imagen.
+
+
+Si deseas que la imagen cambie de tamaño en más puntos de quiebre, puedes añadir más clases como md:max-w-sm, lg:max-w-md, etc., dependiendo del tamaño que quieras asignar en cada resolución.
+
+
   />
 </a>
